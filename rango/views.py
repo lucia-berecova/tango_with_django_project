@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from django.http import HttpResponse
 
+
 def index(request): 
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -19,9 +20,11 @@ def index(request):
     # Render the response and send it back!
     return render(request, 'rango/index.html', context=context_dict)
 
+
 def about(request):
     context_dict = {'boldmessage': 'This tutorial has been put together by Lucia Berecova.'}
     return render(request, 'rango/about.html', context=context_dict)
+
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -34,8 +37,9 @@ def show_category(request, category_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
-        
+
     return render(request, 'rango/category.html', context=context_dict)
+
 
 def add_category(request):
     form = CategoryForm()
@@ -50,6 +54,7 @@ def add_category(request):
     else:
         print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
+
 
 def add_page(request, category_name_slug):
     try:
